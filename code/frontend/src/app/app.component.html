@@ -1,0 +1,26 @@
+<main class="shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">PERSONAL / OPERACIONES</p>
+      <h1>Gestión de empleados</h1>
+      <p class="intro">Administra tu equipo desde un espacio claro y concentrado.</p>
+    </div>
+    <div class="hero-mark" aria-hidden="true">03</div>
+  </header>
+
+  @if (feedback$ | async; as feedback) { <p class="feedback" [class.error]="feedback.includes('No se')" [class.success]="!feedback.includes('No se')">{{ feedback }}</p> }
+
+  <section class="workspace">
+    <app-employee-form
+      [employee]="selectedEmployee"
+      (save)="saveEmployee($event)"
+      (cancel)="cancelEdit()"
+    />
+
+    <app-employee-table
+      [employees]="(employees$ | async) ?? []"
+      (edit)="editEmployee($event)"
+      (remove)="deleteEmployee($event)"
+    />
+  </section>
+</main>

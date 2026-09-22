@@ -1,0 +1,30 @@
+<section class="table-panel">
+  <div class="table-heading">
+    <div>
+      <p class="kicker">DIRECTORIO</p>
+      <h2>Equipo actual <span>{{ employees.length }}</span></h2>
+    </div>
+    <span class="index">02</span>
+  </div>
+
+  @if (employees.length === 0) {
+    <div class="empty">Todavía no hay empleados registrados.</div>
+  } @else {
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nombre</th><th>Cargo</th><th>Área</th><th>Sueldo</th><th></th></tr></thead>
+        <tbody>
+          @for (employee of employees; track employee._id) {
+            <tr>
+              <td class="name">{{ employee.nombre }}</td>
+              <td>{{ employee.cargo }}</td>
+              <td><span class="tag">{{ employee.departamento }}</span></td>
+              <td>{{ employee.sueldo | currency:'USD':'symbol':'1.0-0' }}</td>
+              <td class="row-actions"><button type="button" title="Editar" (click)="edit.emit(employee)">Editar</button><button type="button" title="Eliminar" (click)="remove.emit(employee)">Eliminar</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

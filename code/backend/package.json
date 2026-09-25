@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test:stress": "artillery run stress-test.yml",
     "dev": "tsx watch src/index.ts"
   },
   "keywords": [],
@@ -18,13 +19,17 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@jest/globals": "^30.5.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/morgan": "^1.9.10",
     "@types/node": "^26.6.1",
+    "artillery": "^2.0.34",
+    "jest": "^30.5.2",
     "nodemon": "^3.1.14",
+    "ts-jest": "^29.4.14",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   }
 }

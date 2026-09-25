@@ -1,0 +1,38 @@
+config:
+  target: "http://localhost:3000"
+  plugins:
+    ensure: {}
+  phases:
+    - duration: 20
+      arrivalRate: 5
+      name: "Fase de calentamiento"
+    - duration: 30
+      arrivalRate: 15
+      rampTo: 50
+      name: "Fase de saturacion"
+  ensure:
+    thresholds:
+      - "http.response_time.p99": 200
+    maxErrorRate: 1
+
+scenarios:
+  - name: "Payloads mixtos validados por Zod"
+    flow:
+      - post:
+          url: "/api/v1/empleados"
+          json:
+            nombre: "Andres Mendoza"
+            cargo: "Software Architect"
+            departamento: "I+D"
+            sueldo: 4200
+          capture:
+            - json: "$.data.data._id"
+              as: "employeeId"
+      - think: 1
+      - post:
+          url: "/api/v1/empleados"
+          json:
+            nombre: "Al"
+            cargo: "Dev"
+            departamento: "TI"
+            sueldo: -500
